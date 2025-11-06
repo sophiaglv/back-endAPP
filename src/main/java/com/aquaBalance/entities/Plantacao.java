@@ -1,42 +1,52 @@
 package com.aquaBalance.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Plantacao")
 public class Plantacao {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-   
-    @ManyToOne
-    @JoinColumn(name = "idCultura", nullable = false)
-    private Cultura cultura;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+	
+	@Column(name = "cultura")
+	private String cultura;
 
-    @Column(name = "Descricao")
-    private String descricao;
+	@Column(name = "descricao")
+	private String descricao;
 
-    @Column(name = "Tamanho")
-    private double tamanho;
+	@Column(name = "tamanho")
+	private Double tamanho;
 
-    @Column(name = "UmidadeIdeal")
-    private Double umidadeIdeal;
-    
-    @Column(name = "TemperaturaIdeal")
-    private Double TemperaturaIdeal;
+	@Column(name = "umidadeIdeal")
+	private Double umidadeIdeal;
 
-	public Plantacao(Long id, String descricao, double tamanho, Double umidadeIdeal, Double temperaturaIdeal) {
+	@Column(name = "temperaturaIdeal")
+	private Double temperaturaIdeal;
+
+	@ManyToOne
+	@JoinColumn(name = "idPropriedade", nullable = false)
+	private Fazenda propriedade;
+	
+	public Plantacao(Long id, String cultura, Fazenda propriedade, String descricao, Double tamanho, Double umidadeIdeal,
+			Double temperaturaIdeal) {
 		super();
 		this.id = id;
+		this.cultura = cultura;
+		this.propriedade = propriedade;
 		this.descricao = descricao;
 		this.tamanho = tamanho;
 		this.umidadeIdeal = umidadeIdeal;
-		TemperaturaIdeal = temperaturaIdeal;
+		this.temperaturaIdeal = temperaturaIdeal;
 	}
 
 	public Plantacao() {
@@ -51,6 +61,22 @@ public class Plantacao {
 		this.id = id;
 	}
 
+	public String getCultura() {
+		return cultura;
+	}
+
+	public void setCultura(String cultura) {
+		this.cultura = cultura;
+	}
+
+	public Fazenda getPropriedade() {
+		return propriedade;
+	}
+
+	public void setPropriedade(Fazenda propriedade) {
+		this.propriedade = propriedade;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -59,11 +85,11 @@ public class Plantacao {
 		this.descricao = descricao;
 	}
 
-	public double getTamanho() {
+	public Double getTamanho() {
 		return tamanho;
 	}
 
-	public void setTamanho(double tamanho) {
+	public void setTamanho(Double tamanho) {
 		this.tamanho = tamanho;
 	}
 
@@ -76,23 +102,13 @@ public class Plantacao {
 	}
 
 	public Double getTemperaturaIdeal() {
-		return TemperaturaIdeal;
+		return temperaturaIdeal;
 	}
 
 	public void setTemperaturaIdeal(Double temperaturaIdeal) {
-		TemperaturaIdeal = temperaturaIdeal;
+		this.temperaturaIdeal = temperaturaIdeal;
 	}
 	
-	 
-	 @ManyToMany(mappedBy = "plantacao")
-	 private Set<Sensor> sensor = new HashSet<>();
-	 
-	 @ManyToMany
-		@JoinTable(
-		name = "plantacaoFazenda",
-		joinColumns = @JoinColumn(name = "idPlantacao"),
-		inverseJoinColumns = @JoinColumn(name = "idFazenda")
-		)
-		private Set<Fazenda> fazenda = new HashSet<>();
-    
+	
+
 }

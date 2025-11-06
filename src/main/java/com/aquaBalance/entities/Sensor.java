@@ -1,8 +1,5 @@
 package com.aquaBalance.entities;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -14,20 +11,21 @@ public class Sensor {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "TipoSensor")
+    @Column(name = "tipoSensor")
     private String tipoSensor;
 
     @Column(name = "codigo")
     private int codigo;
 
-    @Column(name = "localizacao")
-    private String localizacao;
+    @ManyToOne
+    @JoinColumn(name = "localizacao", nullable = false)
+    private Plantacao localizacao;
     
 	public Sensor() {
 		super();
 	}
 
-	public Sensor(Long id, String tipoSensor, int codigo, String localizacao) {
+	public Sensor(Long id, String tipoSensor, int codigo, Plantacao localizacao) {
 		super();
 		this.id = id;
 		this.tipoSensor = tipoSensor;
@@ -59,20 +57,12 @@ public class Sensor {
 		this.codigo = codigo;
 	}
 
-	public String getLocalizacao() {
+	public Plantacao getLocalizacao() {
 		return localizacao;
 	}
 
-	public void setLocalizacao(String localizacao) {
+	public void setLocalizacao(Plantacao localizacao) {
 		this.localizacao = localizacao;
 	}   
-    
-	@ManyToMany
-	@JoinTable(
-	name = "sensorPlantacao",
-	joinColumns = @JoinColumn(name = "idSensor"),
-	inverseJoinColumns = @JoinColumn(name = "idPlantacao")
-	)
-	private Set<Plantacao> plantacao = new HashSet<>();
 	
 }

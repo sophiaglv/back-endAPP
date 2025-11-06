@@ -9,7 +9,7 @@ import com.aquaBalance.service.SensorService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/sensores")
+@RequestMapping("/sensor")
 public class SensorController {
 
     private final SensorService sensorService;

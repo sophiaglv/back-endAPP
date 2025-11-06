@@ -1,14 +1,11 @@
 package com.aquaBalance.entities;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,25 +14,25 @@ public class Fazenda {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Id")
+	@Column(name = "id")
 	private Long id;
 	
-	@Column(name = "Nome da propriedade")
+	@Column(name = "nomePropriedade")
 	private String nomePropriedade;
 	
-	@Column(name = "Estado")
+	@Column(name = "estado")
 	private String estado;
 	
-	@Column(name = "Cidade")
+	@Column(name = "cidade")
 	private String cidade;
 	
-	@Column(name = "Bairro")
+	@Column(name = "bairro")
 	private String bairro;
 	
-	@Column(name = "Rua")
+	@Column(name = "rua")
 	private String rua;
 	
-	@Column(name = "Número")
+	@Column(name = "numero")
 	private int numero;
 
 	public Fazenda() {
@@ -109,8 +106,5 @@ public class Fazenda {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	
-	@ManyToMany(mappedBy = "fazenda")
-	 private Set<Plantacao> plantacao = new HashSet<>();
 	
 }
