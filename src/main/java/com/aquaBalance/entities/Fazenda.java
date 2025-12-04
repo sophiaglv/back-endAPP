@@ -63,7 +63,7 @@ public class Fazenda {
 		return nomePropriedade;
 	}
 
-	public void setNomepropriedade(String nomePropriedade) {
+	public void setNomePropriedade(String nomePropriedade) {
 		this.nomePropriedade = nomePropriedade;
 	}
 
@@ -106,5 +106,6 @@ public class Fazenda {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
+	
 	
 }

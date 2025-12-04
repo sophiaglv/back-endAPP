@@ -1,0 +1,33 @@
+version: '3.8' # Adicionei a versão para melhor compatibilidade
+services:
+  app:
+    container_name: app-springboot
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker # Corrigido para underscore
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/aquaBalance?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC # Corrigido para underscore
+      SPRING_DATASOURCE_USERNAME: root # Corrigido para underscore
+      SPRING_DATASOURCE_PASSWORD: 12345678 # Corrigido para underscore
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always # Movido para o nível correto, como um atributo do serviço 'app'
+
+  db:
+    container_name: mysql-db
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: aquaBalance
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s # Timeout muito alto, ajustado para 5s
+      retries: 10
